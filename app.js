@@ -5,14 +5,17 @@ const port = 3000
 
 app.use((req, res, next) => {
   req.requestTime = Date.now()
+  const requestTime = new Date(Date()).toLocaleString()
+  console.log('伺服器收到請求的時間戳記:', requestTime)
   next()
 })
 
 const responseTime = (req, res) => {
   req.responseTime = Date.now()
-  const result = new Date(Date()).toLocaleString()
+  const responseTime = new Date(Date()).toLocaleString()
   const totalTime = req.responseTime - req.requestTime
-  console.log(`${result} | ${req.method} from ${req.url} | total time: ${totalTime}ms`)
+  console.log('伺服器送出回應的時間:', responseTime)
+  console.log(`${responseTime} | ${req.method} from ${req.url} | total time: ${totalTime}ms`)
 }
 
 app.get('/', (req, res, next) => {
